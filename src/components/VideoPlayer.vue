@@ -1,5 +1,10 @@
 <template>
-    <div id="video-container" ref="videoContainer">
+    <div
+        id="video-container"
+        ref="videoContainer"
+        @mouseenter="overlayVisiblity = true"
+        @mouseleave="overlayVisiblity = false"
+    >
         <video
             :key="video"
             ref="video"
@@ -10,32 +15,37 @@
         >
             <source :src="video" type="video/mp4">
         </video>
-        <div id="video-overlay">
-            <div id="timestamp-container">
-                <p id="current-timestamp">{{ currentTimestamp() }}</p>
-                <p id="duration-timestamp">{{ durationTimestamp() }}</p>
-            </div>
-            <div id="controls-container">
-                <div id="video-controls">
-                    <div v-if="paused">
-                        <button class="control-button" id="play" @click="togglePause()">
-                            <ion-icon name="play"></ion-icon>
+        <transition name="fade">
+            <div
+                v-if="overlayVisiblity"
+                id="video-overlay"
+            >
+                <div id="timestamp-container">
+                    <p id="current-timestamp">{{ currentTimestamp() }}</p>
+                    <p id="duration-timestamp">{{ durationTimestamp() }}</p>
+                </div>
+                <div id="controls-container">
+                    <div id="video-controls">
+                        <div v-if="paused">
+                            <button class="control-button" id="play" @click="togglePause">
+                                <ion-icon name="play"></ion-icon>
+                            </button>
+                        </div>
+                        <div v-else>
+                            <button class="control-button" id="pause" @click="togglePause">
+                                <ion-icon name="pause"></ion-icon>
+                            </button>
+                        </div>
+                        <button class="control-button" id="fullscreen" @click="toggleFullscreen">
+                            <ion-icon name="expand"></ion-icon>
                         </button>
                     </div>
-                    <div v-else>
-                        <button class="control-button" id="pause" @click="togglePause()">
-                            <ion-icon name="pause"></ion-icon>
-                        </button>
+                    <div id="progress-container" @click="seekOnProgressBar">
+                        <div id="progress-bar" :style="`width: ${progressBarWidth}`"></div>
                     </div>
-                    <button class="control-button" id="fullscreen" @click="toggleFullscreen()">
-                        <ion-icon name="expand"></ion-icon>
-                    </button>
-                </div>
-                <div id="progress-container" @click="seekOnProgressBar">
-                    <div id="progress-bar" :style="`width: ${progressBarWidth}`"></div>
                 </div>
             </div>
-        </div>
+        </transition>
     </div>
 </template>
 
@@ -50,7 +60,8 @@
         data () {
             return {
                 paused: true,
-                progressBarWidth: "0%"
+                progressBarWidth: "0%",
+                overlayVisiblity: false
             };
         },
         computed: {
@@ -106,6 +117,14 @@
 
 <style scoped>
 
+    .fade-enter-active, .fade-leave-active {
+        transition: opacity .5s;
+    }
+
+    .fade-enter, .fade-leave-to {
+        opacity: 0;
+    }
+
     #video-container {
         position: relative;
         width: 1280px;
@@ -131,7 +150,7 @@
     }
 
     #controls-container {
-        background-color: #222;
+        background-color: rgba(34, 34, 34, .6);
     }
 
     #video-controls {
