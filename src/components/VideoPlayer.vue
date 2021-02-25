@@ -5,6 +5,10 @@
         @mouseenter="overlayVisiblity = true"
         @mouseleave="overlayVisiblity = false"
     >
+        <div
+            id="video-hitbox"
+            @click="togglePause"
+        ></div>
         <video
             :key="video"
             ref="video"
@@ -129,6 +133,13 @@
         position: relative;
         width: 1280px;
         height: 720px;
+    }
+
+    #video-hitbox {
+        position: absolute;
+        width: 100%;
+        height: calc(100% - 20px);
+        z-index: 3;
     }
 
     #video-container video {
