@@ -6,8 +6,8 @@
         <VideoPlayer :show-id=showId :episode-id=episodeId />
         <h2>Episodes</h2>
         <div class="episode-list">
-            <div v-for="(episode, index) in show.episodes" :key=index>
-                <button class="episode-button" @click="switchToEpisode(index)">{{ index }}</button>
+            <div v-for="(_, episode) in show.episodes" :key=episode>
+                <button :class="'episode-button ' + `${ episodeId == episode && 'active-episode' }`" @click="switchToEpisode(episode)">{{ episode }}</button>
             </div>
         </div>
     </div>
@@ -69,6 +69,14 @@
         padding-right: 15px;
         margin-left: 5px;
         margin-right: 5px;
+    }
+
+    .active-episode {
+        background-color: #360c5e !important;
+    }
+
+    .active-episode:hover {
+        background-color: rgba(54, 12, 94, .5) !important;
     }
 
 </style>

@@ -1,30 +1,39 @@
 <template>
     <div id="video-container" ref="videoContainer">
-        <video :key="video" ref="video" @timeupdate="updateProgressBar">
+        <video
+            :key="video"
+            ref="video"
+            @timeupdate="updateProgressBar"
+            @pause="paused = true"
+            @play="paused = false"
+            @seeking="updateProgressBar"
+        >
             <source :src="video" type="video/mp4">
         </video>
         <div id="video-overlay">
-            <div id="video-controls">
-                <div v-if="paused">
-                    <button class="control-button" id="play" @click="togglePause()">
-                        <ion-icon name="play"></ion-icon>
-                    </button>
-                </div>
-                <div v-else>
-                    <button class="control-button" id="pause" @click="togglePause()">
-                        <ion-icon name="pause"></ion-icon>
-                    </button>
-                </div>
-                <button class="control-button" id="fullscreen" @click="toggleFullscreen()">
-                    <ion-icon name="expand"></ion-icon>
-                </button>
-            </div>
             <div id="timestamp-container">
                 <p id="current-timestamp">{{ currentTimestamp() }}</p>
                 <p id="duration-timestamp">{{ durationTimestamp() }}</p>
             </div>
-            <div id="progress-container" @click="seekOnProgressBar">
-                <div id="progress-bar" :style="`width: ${progressBarWidth}`"></div>
+            <div id="controls-container">
+                <div id="video-controls">
+                    <div v-if="paused">
+                        <button class="control-button" id="play" @click="togglePause()">
+                            <ion-icon name="play"></ion-icon>
+                        </button>
+                    </div>
+                    <div v-else>
+                        <button class="control-button" id="pause" @click="togglePause()">
+                            <ion-icon name="pause"></ion-icon>
+                        </button>
+                    </div>
+                    <button class="control-button" id="fullscreen" @click="toggleFullscreen()">
+                        <ion-icon name="expand"></ion-icon>
+                    </button>
+                </div>
+                <div id="progress-container" @click="seekOnProgressBar">
+                    <div id="progress-bar" :style="`width: ${progressBarWidth}`"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -50,16 +59,12 @@
             }
         },
         methods: {
-            togglePause () {
-
-                this.paused = !this.paused;
-                
+            togglePause () {        
                 if (this.paused) {
-                    this.$refs.video.pause();
-                } else {
                     this.$refs.video.play();
+                } else {
+                    this.$refs.video.pause();
                 }
-
             },
             toggleFullscreen () {
                 this.$refs.videoContainer.requestFullscreen();
@@ -76,13 +81,12 @@
             seekOnProgressBar ({ layerX }) {
                 const video = this.$refs.video;
                 video.currentTime = (layerX / video.clientWidth) * video.duration;
-                this.updateProgressBar();
             },
             currentTimestamp () {
-                return this.$refs?.video ? formatTime(this.$refs.video.currentTime) : "0:00";
+                return this.$refs?.video ? formatTime(this.$refs.video.currentTime) : "00:00";
             },
             durationTimestamp () {
-                return this.$refs?.video ? formatTime(this.$refs.video.duration) : "0:00";
+                return this.$refs?.video ? formatTime(this.$refs.video.duration) : "00:00";
             }
         },
         mounted () {
@@ -126,12 +130,17 @@
         justify-content: flex-end;
     }
 
+    #controls-container {
+        background-color: #222;
+    }
+
     #video-controls {
         display: flex;
         flex-direction: row;
         justify-content: flex-start;
-        margin-bottom: 10px;
+        margin-right: 10px;
         margin-left: 10px;
+        margin-top: 10px;
     }
 
     .control-button {
@@ -155,14 +164,15 @@
     }
 
     #progress-container {
-        height: 10px;
-        width: 100%;
-        background-color: rgba(0, 0, 0, .3);
         position: relative;
+        height: 20px;
+        width: 100%;
     }
 
     #progress-bar {
-        height: 100%;
+        position: absolute;
+        bottom: 0;
+        height: 10px;
         background-color: #fff;
         border-top-right-radius: 20px;
         border-bottom-right-radius: 20px;
@@ -170,7 +180,7 @@
     }
 
     #timestamp-container {
-        margin: 10px;
+        margin: 5px;
         margin-top: 0;
         display: flex;
         flex-direction: row;
@@ -180,6 +190,7 @@
 
     #timestamp-container p {
         font-size: 20px;
+        font-weight: bold;
         margin: 0;
     }
 
