@@ -1,6 +1,6 @@
 <template>
-    <div id="video-container">
-        <video :key="video" ref="video" width="1280" height="720" @timeupdate="updateProgressBar">
+    <div id="video-container" ref="videoContainer">
+        <video :key="video" ref="video" @timeupdate="updateProgressBar">
             <source :src="video" type="video/mp4">
         </video>
         <div id="video-overlay">
@@ -62,7 +62,7 @@
 
             },
             toggleFullscreen () {
-                this.$refs.video.requestFullscreen();
+                this.$refs.videoContainer.requestFullscreen();
             },
             updateProgressBar () {
                 
@@ -112,6 +112,8 @@
         position: absolute;
         top: 0;
         left: 0;
+        width: 100%;
+        height: 100%;
     }
 
     #video-overlay {
