@@ -31,12 +31,12 @@
   }
 
   button {
-    background-color: #57acf7;
+    background-color: #7922ca;
     transition: .2s background-color ease-out;
   }
 
   button:hover {
-    background-color: rgba(87, 172, 247, .5);
+    background-color: rgba(121, 34, 202, .5);
   }
 
 </style>
