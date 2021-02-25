@@ -61,7 +61,7 @@
     }
 
     .episode-button {
-        background-color: #a31ffc;
+        background-color: #57acf7;
         border-radius: 100%;
         border: 0;
         padding: 10px;
