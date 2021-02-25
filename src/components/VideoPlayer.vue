@@ -138,7 +138,7 @@
     #video-hitbox {
         position: absolute;
         width: 100%;
-        height: calc(100% - 20px);
+        height: calc(100% - 50px);
         z-index: 3;
     }
 
