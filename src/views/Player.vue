@@ -61,20 +61,14 @@
     }
 
     .episode-button {
-        background-color: #57acf7;
         border-radius: 100%;
         border: 0;
         padding: 10px;
         font-size: 20px;
         padding-left: 15px;
         padding-right: 15px;
-        transition: .2s background-color ease-in-out;
         margin-left: 5px;
         margin-right: 5px;
-    }
-
-    .episode-button:hover {
-        background-color: rgba(163, 31, 252, .5);
     }
 
 </style>

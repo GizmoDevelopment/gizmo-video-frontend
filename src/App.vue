@@ -30,4 +30,13 @@
     color: #FFF;
   }
 
+  button {
+    background-color: #57acf7;
+    transition: .2s background-color ease-out;
+  }
+
+  button:hover {
+    background-color: rgba(87, 172, 247, .5);
+  }
+
 </style>

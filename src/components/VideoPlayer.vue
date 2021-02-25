@@ -134,7 +134,6 @@
 
     .control-button {
         border: 0;
-        background-color: #57acf7;
         width: 50px;
         height: 50px;
         border-radius: 20px;
