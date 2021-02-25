@@ -15,6 +15,9 @@
                         <ion-icon name="pause"></ion-icon>
                     </button>
                 </div>
+                <button class="control-button" id="fullscreen" @click="toggleFullscreen()">
+                    <ion-icon name="expand"></ion-icon>
+                </button>
             </div>
             <div id="timestamp-container">
                 <p id="current-timestamp">{{ currentTimestamp() }}</p>
@@ -58,6 +61,9 @@
                 }
 
             },
+            toggleFullscreen () {
+                this.$refs.video.requestFullscreen();
+            },
             updateProgressBar () {
                 
                 const {
@@ -78,6 +84,18 @@
             durationTimestamp () {
                 return this.$refs?.video ? formatTime(this.$refs.video.duration) : "0:00";
             }
+        },
+        mounted () {
+            
+            window.addEventListener("keypress", e => {
+                switch (e.code) {
+                    case "Space":
+                        this.togglePause();
+                        break;
+                    default:
+                }
+            });
+
         }
     }
 </script>
@@ -128,6 +146,11 @@
 
     .control-button ion-icon {
         font-size: 30px;
+    }
+
+    #fullscreen {
+        position: absolute;
+        right: 10px;
     }
 
     #progress-container {
