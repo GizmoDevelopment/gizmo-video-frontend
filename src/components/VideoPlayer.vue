@@ -12,7 +12,7 @@
         props: [ "showId", "episodeId" ],
         computed: {
             video () {
-                return `${process.env.SERVER_DOMAIN}/shows/${this.showId}?ep=${this.episodeId}`;
+                return `${process.env.VUE_APP_SERVER_DOMAIN}/shows/${this.showId}?ep=${this.episodeId}`;
             }
         }
     }

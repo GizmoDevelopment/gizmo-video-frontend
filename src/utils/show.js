@@ -2,7 +2,7 @@
 const axios = require("axios");
 
 // Variables
-const ENDPOINT = process.env.SERVER_DOMAIN;
+const ENDPOINT = process.env.VUE_APP_SERVER_DOMAIN;
 
 export async function fetchShow (showId) {
     try {
