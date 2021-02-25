@@ -1,7 +1,10 @@
 <template>
-    <div v-if="show">
+    <div v-if="show" class="container">
+        <header>
+            <h1>{{ show.title }}</h1>
+        </header>
         <VideoPlayer :show-id=showId :episode-id=episodeId />
-        <h2>{{ show.title }}</h2>
+        <h2>Episodes</h2>
         <div class="episode-list">
             <div v-for="(episode, index) in show.episodes" :key=index>
                 <button class="episode-button" @click="switchToEpisode(index)">{{ index }}</button>
@@ -43,6 +46,12 @@
 </script>
 
 <style scoped>
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
 
     .episode-list {
         display: flex;
