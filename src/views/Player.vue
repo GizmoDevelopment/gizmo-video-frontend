@@ -1,0 +1,71 @@
+<template>
+    <div v-if="show">
+        <VideoPlayer :show-id=showId :episode-id=episodeId />
+        <h2>{{ show.title }}</h2>
+        <div class="episode-list">
+            <div v-for="(episode, index) in show.episodes" :key=index>
+                <button class="episode-button" @click="switchToEpisode(index)">{{ index }}</button>
+            </div>
+        </div>
+    </div>
+</template>
+
+<script>
+    
+    // Components
+    import VideoPlayer from "../components/VideoPlayer";
+    
+    // Utils
+    import { fetchShow } from "../utils/show";
+
+    export default {
+        name: "Player",
+        props: [ "showId" ],
+        components: {
+            VideoPlayer
+        },
+        data () {
+            return {
+                episodeId: 1,
+                show: null
+            }
+        },
+        async mounted () {
+            this.show = await fetchShow(this.showId);
+        },
+        methods: {
+            switchToEpisode (episodeId) {
+                this.episodeId = episodeId;
+            }
+        }
+    }
+
+</script>
+
+<style scoped>
+
+    .episode-list {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .episode-button {
+        background-color: #a31ffc;
+        border-radius: 100%;
+        border: 0;
+        padding: 10px;
+        font-size: 20px;
+        padding-left: 15px;
+        padding-right: 15px;
+        transition: .2s background-color ease-in-out;
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+
+    .episode-button:hover {
+        background-color: rgba(163, 31, 252, .5);
+    }
+
+</style>
