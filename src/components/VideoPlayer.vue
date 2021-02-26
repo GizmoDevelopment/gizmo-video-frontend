@@ -208,8 +208,8 @@
 
     #video-container {
         position: relative;
-        width: 1280px;
-        height: 720px;
+        width: 852px;
+        height: 480px;
     }
 
     #video-hitbox {
