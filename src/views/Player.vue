@@ -10,7 +10,7 @@
             </div>
         </div>
         <div id="host-container" v-if="user.host">
-            <button @click="prepareForViewers">Prepare</button>
+            <button @click="prepareForViewers">Sync</button>
         </div>
         <h2>Episodes</h2>
         <div class="episode-list">
@@ -80,6 +80,14 @@
         position: absolute;
         right: -400px;
         top: 0;
+    }
+
+    #host-container {
+        margin-top: 30px;
+    }
+
+    #host-container button {
+        font-size: 30px;
     }
 
     #video-view {

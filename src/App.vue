@@ -69,6 +69,9 @@
   button {
     background-color: #7922ca;
     transition: .2s background-color ease-out;
+    border: 0px;
+    padding: 5px;
+    border-radius: 10px;
   }
 
   button:hover {
