@@ -70,7 +70,7 @@
         },
         computed: {
             video () {
-                return `${process.env.VUE_APP_SERVER_DOMAIN}/shows/${this.showId}?ep=${this.episodeId}`;
+                return `${process.env.VUE_APP_API_ENDPOINT}/shows/${this.showId}?ep=${this.episodeId}`;
             }
         },
         methods: {

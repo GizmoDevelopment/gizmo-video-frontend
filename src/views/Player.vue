@@ -19,7 +19,7 @@
     import VideoPlayer from "../components/VideoPlayer";
     
     // Utils
-    import { fetchShow } from "../utils/show";
+    import { fetchShow } from "../utils/api";
 
     export default {
         name: "Player",
