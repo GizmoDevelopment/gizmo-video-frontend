@@ -129,13 +129,13 @@
             });
 
             this.sockets.subscribe("content:play", ({ showId, episodeId }) => {
-                if (this.showId === showId && this.episodeId === episodeId) {
+                if (this.showId === showId && this.episodeId === episodeId && !this.user?.host) {
                     this.$refs.video.play();
                 }
             });
 
             this.sockets.subscribe("content:pause", ({ showId, episodeId }) => {
-                if (this.showId === showId && this.episodeId === episodeId) {
+                if (this.showId === showId && this.episodeId === episodeId && !this.user?.host) {
                     this.$refs.video.pause();
                 }
             });
