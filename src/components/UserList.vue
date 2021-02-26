@@ -4,7 +4,7 @@
         <div id="user-list">
             <div class="user-entry" v-for="user in users" :key="user.id">
                 <img class="user-avatar" :src="user.avatar" alt="User profile picture">
-                <p class="user-name">{{ user.uid }}</p>
+                <p class="user-name">{{ user.uid + (user.host ? " (Host)" : "") }}</p>
             </div>
         </div>
     </div>

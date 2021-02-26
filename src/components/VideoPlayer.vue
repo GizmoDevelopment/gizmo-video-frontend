@@ -5,6 +5,9 @@
         @mouseenter="overlayVisiblity = true"
         @mouseleave="overlayVisiblity = false"
     >
+        <div class="autoplay-alert" v-if="!ready" @click="ready = true">
+            <h1>Click me to mark as ready</h1>
+        </div>
         <div
             id="video-hitbox"
             @click="togglePause"
@@ -65,7 +68,8 @@
             return {
                 paused: true,
                 progressBarWidth: "0%",
-                overlayVisiblity: false
+                overlayVisiblity: false,
+                ready: false
             };
         },
         computed: {
@@ -143,19 +147,22 @@
             });
 
             this.sockets.subscribe("content:play", ({ showId, episodeId }) => {
-                console.log(this.showId == showId, this.episodeId == episodeId, !this.user?.host)
-                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host) {
+                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host && this.ready) {
                     this.$refs.video.play();
                 }
             });
 
             this.sockets.subscribe("content:pause", ({ showId, episodeId }) => {
-                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host) {
+                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host && this.ready) {
                     this.$refs.video.pause();
                 }
             });
 
             this.sockets.subscribe("content:sync", ({ time = 0, showId, episodeId }) => {
+
+                if (!this.ready) {
+                    return;
+                }
 
                 if (this.showId != showId) {
                     return;
@@ -185,6 +192,18 @@
 
     .fade-enter, .fade-leave-to {
         opacity: 0;
+    }
+
+    .autoplay-alert {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        background-color: #222;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
     }
 
     #video-container {
