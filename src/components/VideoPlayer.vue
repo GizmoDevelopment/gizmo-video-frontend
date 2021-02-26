@@ -71,12 +71,15 @@
         computed: {
             video () {
                 return `${process.env.VUE_APP_API_ENDPOINT}/shows/${this.showId}?ep=${this.episodeId}`;
+            },
+            user () {
+                return this.$store.getters.user;
             }
         },
         methods: {
             togglePause () {
                 
-                if (this.$store.state.user?.host) {
+                if (this.user?.host) {
                     this.$socket.emit(`content:${ this.paused ? "pause" : "play" }`, {
                         showId: this.showId,
                         episodeId: this.episodeId

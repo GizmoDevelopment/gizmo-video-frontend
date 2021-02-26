@@ -4,7 +4,7 @@
             <h1>{{ show.title }}</h1>
         </header>
         <VideoPlayer :show-id=showId :episode-id=episodeId />
-        <div id="host-container" v-if="isHost()">
+        <div id="host-container" v-if="user.host">
             <button @click="prepareForViewers">Prepare</button>
         </div>
         <h2>Episodes</h2>
@@ -39,6 +39,11 @@
         async mounted () {
             this.show = await fetchShow(this.showId);
         },
+        computed: {
+            user () {
+                return this.$store.getters.user;
+            }
+        },
         methods: {
             switchToEpisode (episodeId) {
                 this.episodeId = episodeId;
@@ -48,9 +53,6 @@
                     showId: this.showId,
                     episodeId: this.episodeId
                 });
-            },
-            isHost () {
-                return this.$store.state?.user?.host;
             }
         }
     }

@@ -9,8 +9,13 @@ export default new Vuex.Store({
         user: null
     },
     mutations: {
-        UPDATE_USER (oldState, newState) {
-            oldState = newState;
+        UPDATE_USER (state, user) {
+            state.user = user;
+        }
+    },
+    getters: {
+        user: state => {
+            return state.user;
         }
     }
 });
