@@ -81,7 +81,7 @@
                 
                 if (this.user?.host) {
                     this.$socket.emit("data", {
-                        type: `content:${ this.paused ? "pause" : "play" }`,
+                        type: `content:${ this.paused ? "play" : "pause" }`,
                         showId: this.showId,
                         episodeId: this.episodeId
                     });
@@ -129,6 +129,7 @@
             });
 
             this.sockets.subscribe("content:play", ({ showId, episodeId }) => {
+                console.log(this.showId == showId, this.episodeId == episodeId, !this.user?.host)
                 if (this.showId == showId && this.episodeId == episodeId && !this.user?.host) {
                     this.$refs.video.play();
                 }
