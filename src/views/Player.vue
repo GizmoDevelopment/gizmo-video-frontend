@@ -3,7 +3,12 @@
         <header>
             <h1>{{ show.title }}</h1>
         </header>
-        <VideoPlayer :show-id=showId :episode-id=episodeId />
+        <div id="video-view">
+            <VideoPlayer :show-id=showId :episode-id=episodeId />
+            <div id="user-container">
+                <UserList />
+            </div>
+        </div>
         <div id="host-container" v-if="user.host">
             <button @click="prepareForViewers">Prepare</button>
         </div>
@@ -20,6 +25,7 @@
     
     // Components
     import VideoPlayer from "../components/VideoPlayer";
+    import UserList from "../components/UserList";
     
     // Utils
     import { fetchShow } from "../utils/api";
@@ -28,7 +34,8 @@
         name: "Player",
         props: [ "showId" ],
         components: {
-            VideoPlayer
+            VideoPlayer,
+            UserList
         },
         data () {
             return {
@@ -65,6 +72,20 @@
     .container {
         display: flex;
         flex-direction: column;
+        align-items: center;
+    }
+
+    #user-container {
+        position: absolute;
+        right: -400px;
+        top: 0;
+    }
+
+    #video-view {
+        position: relative;
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
         align-items: center;
     }
 
