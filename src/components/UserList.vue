@@ -79,7 +79,7 @@
     }
 
     .user-avatar {
-        height: 25px;
+        width: 25px;
         height: 25px;
         border-radius: 100%;
     }
