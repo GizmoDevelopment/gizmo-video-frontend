@@ -129,24 +129,24 @@
             });
 
             this.sockets.subscribe("content:play", ({ showId, episodeId }) => {
-                if (this.showId === showId && this.episodeId === episodeId && !this.user?.host) {
+                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host) {
                     this.$refs.video.play();
                 }
             });
 
             this.sockets.subscribe("content:pause", ({ showId, episodeId }) => {
-                if (this.showId === showId && this.episodeId === episodeId && !this.user?.host) {
+                if (this.showId == showId && this.episodeId == episodeId && !this.user?.host) {
                     this.$refs.video.pause();
                 }
             });
 
             this.sockets.subscribe("content:prepare", ({ showId, episodeId }) => {
                 
-                if (this.showId !== showId) {
+                if (this.showId != showId) {
                     return;
                 }
 
-                if (this.episodeId !== episodeId) {
+                if (this.episodeId != episodeId) {
                     return;
                 }
 
