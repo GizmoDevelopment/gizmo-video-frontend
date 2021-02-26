@@ -99,7 +99,11 @@
 
             },
             toggleFullscreen () {
-                this.$refs.videoContainer.requestFullscreen();
+                if (document.fullscreenElement) {
+                    document.exitFullscreen();
+                } else {
+                    this.$refs.videoContainer.requestFullscreen();
+                }
             },
             updateProgressBar () {
                 
@@ -215,7 +219,7 @@
     #video-hitbox {
         position: absolute;
         width: 100%;
-        height: calc(100% - 50px);
+        height: calc(100% - 80px);
         z-index: 3;
     }
 
