@@ -16,25 +16,26 @@
         connected: false
       };
     },
+    sockets: {
+      response (data) {
+        console.error(data);
+      },
+      disconnect () {
+        this.connected = false;
+      }
+    },
     mounted () {
+
+      this.sockets.subscribe("auth:success", user => {
+        this.$store.commit("UPDATE_USER", user);
+        this.connected = true;
+      });
 
       const token = this.$cookies.get("gizmoUserKey");
 
       if (token) {
 
-        const socket = io(process.env.API_ENDPOINT);
-
-        socket.emit("auth", {
-          token
-        });
-
-        socket.on("auth:success", () => {
-          this.connected = true;
-        });
-
-        socket.on("response", data => {
-          console.error(data);
-        })
+        this.$socket.emit("auth", { token });
 
       } else {
         console.error("No user token cookie");

@@ -4,6 +4,9 @@
             <h1>{{ show.title }}</h1>
         </header>
         <VideoPlayer :show-id=showId :episode-id=episodeId />
+        <div id="host-container" v-if="isHost()">
+            <button @click="prepareForViewers">Prepare</button>
+        </div>
         <h2>Episodes</h2>
         <div class="episode-list">
             <div v-for="(_, episode) in show.episodes" :key=episode>
@@ -31,7 +34,7 @@
             return {
                 episodeId: 1,
                 show: null
-            }
+            };
         },
         async mounted () {
             this.show = await fetchShow(this.showId);
@@ -39,6 +42,15 @@
         methods: {
             switchToEpisode (episodeId) {
                 this.episodeId = episodeId;
+            },
+            prepareForViewers () {
+                this.$socket.emit("content:prepare", {
+                    showId: this.showId,
+                    episodeId: this.episodeId
+                });
+            },
+            isHost () {
+                return this.$store.state?.user?.host;
             }
         }
     }

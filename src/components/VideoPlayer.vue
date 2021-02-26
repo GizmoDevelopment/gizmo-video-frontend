@@ -74,12 +74,21 @@
             }
         },
         methods: {
-            togglePause () {        
+            togglePause () {
+                
+                if (this.$store.state.user?.host) {
+                    this.$socket.emit(`content:${ this.paused ? "pause" : "play" }`, {
+                        showId: this.showId,
+                        episodeId: this.episodeId
+                    });
+                }
+
                 if (this.paused) {
                     this.$refs.video.play();
                 } else {
                     this.$refs.video.pause();
                 }
+
             },
             toggleFullscreen () {
                 this.$refs.videoContainer.requestFullscreen();
