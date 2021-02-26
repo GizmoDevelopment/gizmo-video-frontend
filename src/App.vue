@@ -3,7 +3,7 @@
     <router-view />
   </div>
   <div v-else>
-    <h1 align="center">Connecting...</h1>
+    <h1 align="center">{{ response }}</h1>
   </div>
 </template>
 
@@ -13,12 +13,14 @@
     name: "App",
     data () {
       return {
-        connected: false
+        connected: false,
+        response: "Connecting..."
       };
     },
     sockets: {
       response (data) {
         console.error(data);
+        this.response = data;
       },
       disconnect () {
         this.connected = false;
