@@ -49,7 +49,8 @@
                 this.episodeId = episodeId;
             },
             prepareForViewers () {
-                this.$socket.emit("content:prepare", {
+                this.$socket.emit("data", {
+                    type: "content:prepare",
                     showId: this.showId,
                     episodeId: this.episodeId
                 });

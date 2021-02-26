@@ -80,7 +80,8 @@
             togglePause () {
                 
                 if (this.user?.host) {
-                    this.$socket.emit(`content:${ this.paused ? "pause" : "play" }`, {
+                    this.$socket.emit("data", {
+                        type: `content:${ this.paused ? "pause" : "play" }`,
                         showId: this.showId,
                         episodeId: this.episodeId
                     });
@@ -137,6 +138,20 @@
                 if (this.showId === showId && this.episodeId === episodeId) {
                     this.$refs.video.pause();
                 }
+            });
+
+            this.sockets.subscribe("content:prepare", ({ showId, episodeId }) => {
+                
+                if (this.showId !== showId) {
+                    return;
+                }
+
+                if (this.episodeId !== episodeId) {
+                    return;
+                }
+
+                this.$refs.video.currentTime = 0;
+                console.log("synced");
             });
 
         }
