@@ -57,9 +57,10 @@
             },
             prepareForViewers () {
                 this.$socket.emit("data", {
-                    type: "content:prepare",
+                    type: "content:sync",
                     showId: this.showId,
-                    episodeId: this.episodeId
+                    episodeId: this.episodeId,
+                    time: 0
                 });
             }
         }

@@ -107,14 +107,28 @@
                 this.progressBarWidth = (100 / duration) * currentTime + "%";
             },
             seekOnProgressBar ({ layerX }) {
+
                 const video = this.$refs.video;
+
                 video.currentTime = (layerX / video.clientWidth) * video.duration;
+                this.syncWithClients();
+
             },
             currentTimestamp () {
                 return this.$refs?.video ? formatTime(this.$refs.video.currentTime) : "00:00";
             },
             durationTimestamp () {
                 return this.$refs?.video ? formatTime(this.$refs.video.duration) : "00:00";
+            },
+            syncWithClients () {
+                if (this.user?.host) {
+                    this.$socket.emit("data", {
+                        type: "content:sync",
+                        showId: this.showId,
+                        episodeId: this.episodeId,
+                        time: this.$refs.video.currentTime
+                    });
+                }
             }
         },
         mounted () {
@@ -141,8 +155,8 @@
                 }
             });
 
-            this.sockets.subscribe("content:prepare", ({ showId, episodeId }) => {
-                
+            this.sockets.subscribe("content:sync", ({ time = 0, showId, episodeId }) => {
+
                 if (this.showId != showId) {
                     return;
                 }
@@ -151,7 +165,11 @@
                     return;
                 }
 
-                this.$refs.video.currentTime = 0;
+                if (this.user?.host) {
+                    return;
+                }
+
+                this.$refs.video.currentTime = time;
                 console.log("synced");
             });
 
