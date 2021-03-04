@@ -7,8 +7,7 @@ Vue.use(Vuex);
 export default new Vuex.Store({
     state: {
         user: null,
-        shows: null,
-        room: null
+        shows: null
     },
     mutations: {
         UPDATE_USER (state, user) {
@@ -16,9 +15,14 @@ export default new Vuex.Store({
         },
         UPDATE_SHOWS (state, shows) {
             state.shows = shows;
+        }
+    },
+    getters: {
+        user: state => {
+            return state.user;
         },
-        UPDATE_ROOM (state, room) {
-            state.room = room;
+        shows: state => {
+            return state.shows;
         }
     }
 });

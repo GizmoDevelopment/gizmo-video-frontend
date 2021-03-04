@@ -6,10 +6,26 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "/shows",
+    name: "ShowList",
+    component: () => import("../views/ShowList")
+  },
+  {
     path: "/shows/:showId",
-    name: "Player",
     props: true,
-    component: () => import("../views/Player")
+    name: "Show",
+    component: () => import("../views/Show")
+  },
+  {
+    path: "/rooms",
+    name: "RoomList",
+    component: () => import("../views/RoomList")
+  },
+  {
+    path: "/rooms/:roomId",
+    props: true,
+    name: "Room",
+    component: () => import("../views/Room")
   },
 ];
 

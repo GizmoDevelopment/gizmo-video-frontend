@@ -1,81 +1,88 @@
 <template>
-  <div id="app" v-if="connected">
-    <router-view />
-  </div>
-  <div v-else>
-    <h1 align="center">{{ response }}</h1>
-  </div>
+    <div id="app" v-if="connected">
+        <Header />
+        <router-view />
+    </div>
+    <div v-else>
+        <h2 align="center">{{ connectionStatus }}</h2>
+    </div>
 </template>
 
 <script>
 
-  export default {
-    name: "App",
-    data () {
-      return {
-        connected: false,
-        response: "Connecting..."
-      };
-    },
-    sockets: {
-      response (data) {
-        console.error(data);
-        this.response = data;
-      },
-      disconnect () {
-        this.connected = false;
-      }
-    },
-    mounted () {
+    // Components
+    import Header from "./components/Header";
 
-      this.sockets.subscribe("auth:success", user => {
-        this.$store.commit("UPDATE_USER", user);
-        this.connected = true;
-      });
+    export default {
+        name: "App",
+        components: {
+            Header
+        },
+        data () {
+            return {
+                connected: false,
+                connectionStatus: "Connecting..."
+            }
+        },
+        mounted () {
+            
+            const token = this.$cookies.get("gizmoUserKey");
 
-      const token = this.$cookies.get("gizmoUserKey");
+            if (token) {
+                this.$socket.emit("client:authenticate", { token }, ({ type, message }) => {
+                    if (type === "success") {
+                        this.$store.commit("UPDATE_USER", message);
+                        this.connected = true;
+                    } else {
+                        this.connectionStatus = message;
+                    }
+                });
+            } else {
+                this.connectionStatus = "Try logging into the Gizmo website again.";
+            }
 
-      if (token) {
-
-        this.$socket.emit("auth", { token });
-
-      } else {
-        console.error("No user token cookie");
-      }
-
+        }
     }
-  }
 
 </script>
 
 <style>
 
-  body {
-    background: #16151D;
-  }
+    body {
+        background: #16151D;
+    }
 
-  #app, body {
-    margin: 0;
-  }
+    #app, body {
+        margin: 0;
+    }
 
-  #app, button, h1, h2, h3, p {
-    font-family: "Varela Round", sans-serif;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-align: center;
-    color: #FFF;
-  }
+    #app, button, h1, h2, h3, p, a, span, input {
+        font-family: "Varela Round", sans-serif;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+        text-align: center;
+        color: #FFF;
+    }
 
-  button {
-    background-color: #7922ca;
-    transition: .2s background-color ease-out;
-    border: 0px;
-    padding: 5px;
-    border-radius: 10px;
-  }
+    button, input {
+        background-color: #555177;
+        transition: .2s background-color ease-out;
+        border: 0px;
+        padding: 5px;
+        border-radius: 10px;
+        outline: none;
+    }
 
-  button:hover {
-    background-color: rgba(121, 34, 202, .5);
-  }
+    button:hover {
+        background-color: rgba(85, 81, 119, .5);
+    }
+
+    a {
+        text-decoration: none;
+    }
+
+    input {
+        text-align: left;
+    }
 
 </style>

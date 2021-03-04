@@ -17,7 +17,7 @@ Vue.config.productionTip = false
 Vue.use(require("vue-cookies"));
 Vue.use(new VueSocketIO({
   debug: true,
-  connection: SocketIO(process.env.VUE_APP_CHAT_ENDPOINT)
+  connection: SocketIO(process.env.VUE_APP_API_ENDPOINT)
 }));
 
 new Vue({
