@@ -41,16 +41,19 @@
 
                     const { video } = this.$refs;
 
-                    const syncData = {
-                        timestamp: video.currentTime,
-                        paused: video.paused
-                    };
+                    if (video) {
+                        
+                        const syncData = {
+                            timestamp: video.currentTime,
+                            paused: video.paused
+                        };
 
-                    this.$socket.emit("client:sync_player", syncData, ({ type, message}) => {
-                        if (type !== "success") {
-                            console.error(message);
-                        }
-                    });
+                        this.$socket.emit("client:sync_player", syncData, ({ type, message}) => {
+                            if (type !== "success") {
+                                console.error(message);
+                            }
+                        });
+                    }
                 }
             }
         },

@@ -6,7 +6,7 @@
                 class="episode-entry"
                 v-for="(_, episode) in show.episodes"
                 :key="episode"
-                @click="changeToEpisode.bind(episode)"
+                @click="changeToEpisode(episode)"
             >
                 {{ episode }}
             </button>
