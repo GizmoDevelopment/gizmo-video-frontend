@@ -64,8 +64,15 @@
 
             this.$socket.emit("client:join_room", { roomId: this.roomId }, ({ type, message }) => {
                 if (type === "success") {
-                    this.room = message;
+                    this.room = {
+                        ...message,
+                        data: {
+                            episodeId: 2,
+                            showId: 3
+                        }
+                    };
                     this.$store.state.room = message;
+
                 } else {
                     console.error(message);
                 }
