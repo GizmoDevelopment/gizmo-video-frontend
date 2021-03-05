@@ -17,7 +17,9 @@
             :data="room.data"
             :isHost="isHost"
         />
-        <RoomChat />
+        <RoomChat
+            :messages="room.messages"
+        />
     </div>
     <div v-else>
         <Buffer />
@@ -109,6 +111,12 @@
             this.sockets.subscribe("client:leave_room", userId => {
                 if (this.room) {
                     this.room.users = this.room.users.filter(user => user.id !== userId);
+                }
+            });
+            
+            this.sockets.subscribe("client:send_message", message => {
+                if (this.room) {
+                    this.room.messages.push(message);
                 }
             });
 

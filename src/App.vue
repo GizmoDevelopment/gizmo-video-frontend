@@ -80,6 +80,14 @@
         outline: none;
     }
 
+    input {
+        background-color: var(--container-background-color);
+    }
+
+    input:focus {
+        background-color: var(--primary-color);
+    }
+
     button:hover {
         background-color: rgba(85, 81, 119, .5);
     }
