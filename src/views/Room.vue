@@ -77,7 +77,7 @@
                 this.$socket.emit("client:fetch_room", { roomId: savedRoom.id }, ({ type, message }) => {
                     if (type === "success") {
                         this.room = message;
-                        this.$store.state.room = message;
+                        this.$store.commit("UPDATE_ROOM", message);
                     } else {
                         console.error(message);
                     }
@@ -87,7 +87,7 @@
                 this.$socket.emit("client:join_room", { roomId: this.roomId }, ({ type, message }) => {
                     if (type === "success") {
                         this.room = message;
-                        this.$store.state.room = message;
+                        this.$store.commit("UPDATE_ROOM", message);
                     } else {
                         console.error(message);
                     }
