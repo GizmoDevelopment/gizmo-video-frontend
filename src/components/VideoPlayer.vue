@@ -1,16 +1,21 @@
 <template>
     <div>
-        <video
-            ref="video"
-            :controls="isHost"
-            width="1280"
-            height="720"
-            @pause="syncPlayer()"
-            @play="syncPlayer()"
-            @seeked="syncPlayer()"
-        >
-            <source :src="videoSource" type="video/mp4">
-        </video>
+        <div v-if="data">
+            <video
+                ref="video"
+                :controls="isHost"
+                width="1280"
+                height="720"
+                @pause="syncPlayer()"
+                @play="syncPlayer()"
+                @seeked="syncPlayer()"
+            >
+                <source :src="videoSource" type="video/mp4">
+            </video>
+        </div>
+        <div v-else>
+            <h2>No show has been selected yet</h2>
+        </div>
     </div>
 </template>
 
@@ -58,6 +63,10 @@
             }
         },
         mounted () {
+
+            if (this.data?.timestamp) {
+                this.$refs.video.currentTime = this.data.timestamp;
+            }
             
             this.sockets.subscribe("client:sync_player", ({ timestamp, paused }) => {
 
