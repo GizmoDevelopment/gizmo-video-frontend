@@ -8,9 +8,15 @@
                 @click="leaveRoom()"
             ></ion-icon>
         </div>
-        <RoomUserList :users="room.users" :host="room.host" />
+        <RoomUserList
+            :users="room.users"
+            :host="room.host"
+        />
         <p></p>
-        <VideoPlayer :data="room.data" :isHost="isHost" />
+        <VideoPlayer
+            :data="room.data"
+            :isHost="isHost"
+        />
         <RoomChat />
     </div>
     <div v-else>
@@ -62,28 +68,42 @@
         },
         mounted () {
 
-            this.$socket.emit("client:join_room", { roomId: this.roomId }, ({ type, message }) => {
-                if (type === "success") {
-                    this.room = {
-                        ...message,
-                        data: {
-                            episodeId: 2,
-                            showId: 3
-                        }
-                    };
-                    this.$store.state.room = message;
+            const savedRoom = this.$store.state.room;
 
-                } else {
-                    console.error(message);
+            if (savedRoom) {
+                
+                this.$socket.emit("client:fetch_room", { roomId: savedRoom.id }, ({ type, message }) => {
+                    if (type === "success") {
+                        this.room = message;
+                        this.$store.state.room = message;
+                    } else {
+                        console.error(message);
+                    }
+                });
+
+            } else {
+                this.$socket.emit("client:join_room", { roomId: this.roomId }, ({ type, message }) => {
+                    if (type === "success") {
+                        this.room = message;
+                        this.$store.state.room = message;
+                    } else {
+                        console.error(message);
+                    }
+                });
+            }
+
+            this.sockets.subscribe("client:update_room", updatedRoomContent => {
+                if (this.room) {
+                    this.room.data = updatedRoomContent;
+                    this.$store.commit("UPDATE_ROOM", updatedRoomContent);
                 }
             });
 
-            this.sockets.subscribe("client:update_room", updatedRoomContent => {
-                if (this.room) this.room.data = updatedRoomContent;
-            });
-
             this.sockets.subscribe("client:join_room", user => {
-                if (this.room) this.room.users.push(user);
+                if (this.room) {
+                    this.room.users.push(user);
+                    this.$store.commit("UPDATE_ROOM", this.room);
+                }
             });
 
             this.sockets.subscribe("client:leave_room", userId => {
