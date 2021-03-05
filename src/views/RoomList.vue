@@ -10,6 +10,7 @@
                 id="create-room-input" 
                 type="text"
                 placeholder="Room name..."
+                autocomplete="off"
             >
             <div v-if="allowRoomCreation">
                 <ion-icon

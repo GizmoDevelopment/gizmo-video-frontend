@@ -19,6 +19,7 @@
                 @change="resizeInput"
                 @blur="resizeInput"
                 :style="`width: ${ inputWidth }px;`"
+                autocomplete="off"
             >
         </div>
     </div>
