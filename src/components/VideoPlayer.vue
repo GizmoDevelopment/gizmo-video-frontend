@@ -67,16 +67,19 @@
 
                 const { video } = this.$refs;
 
-                const timeDifference = video.currentTime - timestamp;
+                if (video) {
+                    
+                    const timeDifference = video.currentTime - timestamp;
 
-                if (timeDifference > 5 || timeDifference < 5) {
-                    video.currentTime = timestamp;
-                }
-                
-                if (paused) {
-                    video.pause();
-                } else {
-                    video.play();
+                    if (timeDifference > 5 || timeDifference < 5) {
+                        video.currentTime = timestamp;
+                    }
+                    
+                    if (paused) {
+                        video.pause();
+                    } else {
+                        video.play();
+                    }
                 }
 
             });

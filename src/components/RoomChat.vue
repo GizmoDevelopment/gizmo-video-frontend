@@ -48,7 +48,7 @@
                     { messageInput } = this.$refs,
                     messageContent = messageInput.value;
 
-                if (messageContent.trim().length > 0 && this.$store.state.room) {
+                if (this.$store.state.room && messageContent.trim().length > 0) {
 
                     this.allowMessageSending = false
                     messageInput.blur();
