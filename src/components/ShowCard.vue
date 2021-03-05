@@ -21,7 +21,7 @@
 <style scoped>
 
     .container {
-        background-color: #333142;
+        background-color: var(--container-background-color);
         width: 600px;
         display: flex;
         flex-direction: row;

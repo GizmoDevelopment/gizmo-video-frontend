@@ -35,7 +35,7 @@
 <style scoped>
 
     header {
-        background-color: #333142;
+        background-color: var(--container-background-color);
         width: 100%;
         height: 50px;
         display: flex;
@@ -56,7 +56,7 @@
     .navigation-label::after {
         content: "";
         position: absolute;
-        background-color: #FFF;
+        background-color: var(--text-color);
         width: 0;
         height: 1px;
         left: 50%;

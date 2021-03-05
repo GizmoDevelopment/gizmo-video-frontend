@@ -37,7 +37,7 @@
     }
 
     .crown {
-        border: 3px solid #716c95;
+        border: 3px solid var(--primary-color);
         clip-path: none !important;
     }
 

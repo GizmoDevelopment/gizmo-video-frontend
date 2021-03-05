@@ -48,8 +48,15 @@
 
 <style>
 
+    :root {
+        --background-color: #16151D;
+        --container-background-color: #333142;
+        --primary-color: #555177;
+        --text-color: #FFF;
+    }
+
     body {
-        background: #16151D;
+        background: var(--background-color);
     }
 
     #app, body {
@@ -61,11 +68,11 @@
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
-        color: #FFF;
+        color: var(--text-color);
     }
 
     button, input {
-        background-color: #555177;
+        background-color: var(--primary-color);
         transition: .2s background-color ease-out;
         border: 0px;
         padding: 5px;

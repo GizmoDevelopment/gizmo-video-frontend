@@ -24,11 +24,6 @@
     export default {
         name: "VideoPlayer",
         props: [ "data", "isHost" ],
-        data () {
-            return {
-                ready: false
-            };
-        },
         computed: {
             user () {
                 return this.$store.state.user;
@@ -104,19 +99,5 @@
 </script>
 
 <style scoped>
-
-    #autoplay-prompt {
-        width: 1280px;
-        height: 720px;
-        background-color: #333142;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        align-items: center;
-    }
-
-    #autoplay-prompt * {
-        user-select: none;
-    }
 
 </style>
