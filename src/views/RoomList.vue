@@ -2,9 +2,9 @@
     <div>
         <h1 id="room-creation-title">Create Room</h1>
         <span id="room-creation-response">{{ roomCreationResponse }}</span>
-        <div v-if="allowRoomCreation">
+        <div v-if="allowRoomCreation" id="room-creation-input-container">
             <StretchableInput
-                id="create-room-input"
+                id="room-creation-input"
                 ref="createRoomInput"
                 placeholder="Room name..."
                 :enabled="allowRoomCreation"
@@ -110,8 +110,15 @@
         color: #f63a3a;
     }
 
-    #create-room-input {
+    #room-creation-input-container {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+    }
+
+    #room-creation-input {
         margin-top: 5px;
+        width: 400px;
     }
 
 </style>
