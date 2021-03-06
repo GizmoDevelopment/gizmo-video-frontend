@@ -14,7 +14,7 @@
             </video>
         </div>
         <div v-else>
-            <h2>No show has been selected yet</h2>
+            <h2 class="faded-text">No show has been selected yet</h2>
         </div>
     </div>
 </template>
