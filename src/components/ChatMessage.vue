@@ -26,7 +26,7 @@
 
                 return content.length > 50
                     ? content.length * 80
-                    : 4500;
+                    : 7000;
             }
         },
         mounted () {
