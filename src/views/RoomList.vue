@@ -1,29 +1,30 @@
 <template>
-    <div v-if="rooms">
+    <div>
         <h1 id="room-creation-title">Create Room</h1>
-        <div v-if="roomCreationResponse">
-            <span id="room-creation-response">{{ roomCreationResponse }}</span>
-        </div>
-        <div id="room-creation-container">
-            <input
-                ref="createRoomName"
-                id="create-room-input" 
-                type="text"
+        <span id="room-creation-response">{{ roomCreationResponse }}</span>
+        <div v-if="allowRoomCreation">
+            <StretchableInput
+                id="create-room-input"
+                ref="createRoomInput"
                 placeholder="Room name..."
-                autocomplete="off"
-            >
-            <div v-if="allowRoomCreation">
-                <ion-icon
-                    name="add-circle-outline"
-                    @click="createRoom"
-                ></ion-icon>
-            </div>
+                :enabled="allowRoomCreation"
+                stretch="false"
+                button="add-circle-outline"
+                size="20"
+                @submit="createRoom"
+            />
+        </div>
+        <div v-else>
+            <Buffer />
         </div>
         <h1>Rooms</h1>
-        <div id="room-container">
+        <div id="room-container" v-if="rooms">
             <div v-for="room in rooms" :key="room.id">
                 <RoomCard :room="room" />
             </div>
+        </div>
+        <div v-else>
+            <h3 class="faded-text">No active rooms :(</h3>
         </div>
     </div>
 </template>
@@ -32,11 +33,15 @@
 
     // Components
     import RoomCard from "../components/RoomCard";
+    import StretchableInput from "../components/StretchableInput";
+    import Buffer from "../components/Buffer";
 
     export default {
         name: "RoomList",
         components: {
-            RoomCard
+            RoomCard,
+            StretchableInput,
+            Buffer
         },
         data () {
             return {
@@ -46,31 +51,31 @@
             };
         },
         methods: {
-            async createRoom () {
+            async createRoom (roomName) {
+                if (roomName && this.allowRoomCreation) {
 
-                const name = this.$refs.createRoomName.value;
+                    const cleanRoomName = roomName.trim();
 
-                if (name && name.trim().length > 0) {
-                    this.$socket.emit("client:create_room", { roomName: name }, ({ type, message }) => {
-                        
-                        if (type === "success") {
-                            this.$router.push(`/rooms/${ message.id }`);
-                        } else {
-                            console.error(message);
-                            this.roomCreationResponse = message;
-                        }
-
-                        this.allowRoomCreation = true;
-                    });
+                    if (cleanRoomName.length <= 40) {
+                        this.$socket.emit("client:create_room", { roomName }, ({ type, message }) => {
+                            if (type === "success") {
+                                this.$router.push(`/rooms/${ message.id }`);
+                            } else {
+                                console.error(message);
+                                this.roomCreationResponse = message;
+                            }
+                        });
+                    } else {
+                        this.roomCreationResponse = "Room names can only be up to 40 characters long";
+                    }
                 }
-
             }
         },
         mounted () {
             
             this.$socket.emit("client:fetch_rooms", ({ type, message }) => {
                 if (type === "success") {
-                    this.rooms = message;
+                    if (message.length > 0) this.rooms = message;
                 } else {
                     console.error(message);
                 }
@@ -94,18 +99,6 @@
         align-items: center;
     }
 
-    #create-room-input {
-        font-size: 25px;
-    }
-
-    #room-creation-container ion-icon {
-        font-size: 30px;
-    }
-
-    #room-creation-container ion-icon:hover {
-        cursor: pointer;
-    }
-
     #room-container {
         display: flex;
         flex-direction: column;
@@ -115,6 +108,10 @@
 
     #room-creation-response {
         color: #f63a3a;
+    }
+
+    #create-room-input {
+        margin-top: 5px;
     }
 
 </style>
