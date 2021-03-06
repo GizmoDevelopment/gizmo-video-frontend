@@ -49,14 +49,15 @@
 <style>
 
     :root {
-        --background-color: #16151D;
-        --container-background-color: #333142;
-        --primary-color: #555177;
+        --background-color: #1a161d;
+        --container-background-color: #4e3b8b;
+        --primary-color: #795bdd;
         --text-color: #FFF;
     }
 
     body {
         background: var(--background-color);
+        overflow: hidden;
     }
 
     #app, body {
@@ -72,7 +73,7 @@
     }
 
     button, input {
-        background-color: var(--primary-color);
+        background-color: var(--container-background-color);
         transition: .2s background-color ease-out;
         border: 0px;
         padding: 5px;
@@ -89,7 +90,7 @@
     }
 
     button:hover {
-        background-color: rgba(85, 81, 119, .5);
+        background-color: var(--primary-color);
     }
 
     a {
@@ -98,6 +99,14 @@
 
     input {
         text-align: left;
+    }
+
+    .faded-text {
+        color: rgba(255, 255, 255, .5);
+    }
+
+    ion-icon {
+        pointer-events: none;
     }
 
 </style>
