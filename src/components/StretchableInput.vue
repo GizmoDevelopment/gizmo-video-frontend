@@ -10,8 +10,12 @@
             :placeholder="placeholder"
             :disabled="!isEnabled"
             :style="inputStyle"
+            :maxlength="maxLength"
             
             @keydown.enter.prevent="submitInput()"
+            @keydown="resizeInput()"
+            @change="resizeInput()"
+            @blur="resizeInput()"
 
         >
         <div
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-    
+
     export default {
         name: "StretchableInput",
         props: [
@@ -36,23 +40,21 @@
             "enabled",
             "stretch",
             "button",
-            "size"
+            "size",
+            "maxLength",
+            "clearAfterSubmit"
         ],
         computed: {
             isEnabled () {
                 return this.enabled && this.enabled || true;
             },
             inputStyle () {
-                
                 const size = this.size || 20;
-
                 return `font-size: ${ size }px;`;
             },
             buttonStyle () {
-                
                 const size = parseInt(this.size || 20);
-
-                return `font-size: ${ size + 10 }px;`;
+                return `font-size: ${ size + 5 }px; `;
             }
         },
         methods: {
@@ -65,9 +67,28 @@
                     const value = input.value.trim();
                     
                     if (value.length > 0) {
+
                         this.$emit("submit", value);
+
+                        if (this.clearAfterSubmit) {
+                            input.blur();
+                            input.value = "";
+                        }
                     }
                 }
+            },
+            resizeInput () {
+                /*
+                    if (this.stretch && this.defaultWidth) {
+
+                        const { input } = this.$refs;
+
+                        if (input) {
+
+                            true
+                        }
+                    }
+                */
             }
         }
     }
@@ -83,7 +104,13 @@
         align-items: center;
     }
 
+    .stretchable-input-container input {
+        flex: 1;
+        transition: .2s width linear;
+    }
     .stretchable-button-container {
+        flex: 0;
+        margin-left: 5px;
         display: flex;
         flex-direction: row;
         justify-content: center;

@@ -8,19 +8,18 @@
             </div>
         </div>
         <div id="message-input-container">
-            <input
-                ref="messageInput"
-                id="message-input"
-                type="text"
+            <StretchableInput
+                message-input
                 placeholder="Send a message..."
-                :disabled="!allowMessageSending"
-                @keydown.enter.prevent="sendMessage"
-                @keydown="resizeInput"
-                @change="resizeInput"
-                @blur="resizeInput"
-                :style="`width: ${ inputWidth }px;`"
-                autocomplete="off"
-            >
+                :enabled="allowMessageSending"
+                size="16"
+                button="paper-plane-outline"
+                stretch="true"
+                default-width="200"
+                max-length="400"
+                clear-after-submit="true"
+                @submit="sendMessage"
+            />
         </div>
     </div>
 </template>
@@ -29,31 +28,25 @@
 
     // Components
     import ChatMessage from "./ChatMessage";
+    import StretchableInput from './StretchableInput';
     
     export default {
         name: "RoomChat",
         props: [ "messages" ],
         components: {
-            ChatMessage
+            ChatMessage,
+            StretchableInput
         },
         data () {
             return {
-                allowMessageSending: true,
-                inputWidth: 200
+                allowMessageSending: true
             };
         },
         methods: {
-            sendMessage () {
-
-                const
-                    { messageInput } = this.$refs,
-                    messageContent = messageInput.value;
-
-                if (this.$store.state.room && messageContent.trim().length > 0) {
+            sendMessage (messageContent) {
+                if (this.$store.state.room) {
 
                     this.allowMessageSending = false
-                    messageInput.blur();
-                    messageInput.value = "";
 
                     this.$socket.emit("client:send_message", {
                         roomId: this.$store.state.room.id,
@@ -65,13 +58,6 @@
                             console.error(message);
                         }
                     });
-                }
-            },
-            resizeInput ({ target }) {
-                if (target.value.length > 20) {
-                    this.inputWidth = 200 + ((target.value.length - 20) * 8);
-                } else {
-                    this.inputWidth = 200;
                 }
             }
         }
@@ -114,11 +100,9 @@
         justify-content: flex-end;
         align-items: center;
     }
-
-    #message-input {
-        font-size: 15px;
-        transition: .15s width linear;
-        position: absolute;
+    
+    #message-input-container >>> div {
+        width: 80%;
     }
 
 </style>
