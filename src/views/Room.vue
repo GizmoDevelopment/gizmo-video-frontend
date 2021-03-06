@@ -25,7 +25,12 @@
         />
     </div>
     <div v-else>
-        <Buffer />
+        <div v-if="roomJoinResponse">
+            <h3 class="faded-text">{{ roomJoinResponse }}</h3>
+        </div>
+        <div v-else>
+            <Buffer />
+        </div>
     </div>
 </template>
 
@@ -48,7 +53,8 @@
         },
         data () {
             return {
-                room: null
+                room: null,
+                roomJoinResponse: ""
             };
         },
         computed: {
@@ -83,6 +89,7 @@
                         this.$store.commit("UPDATE_ROOM", message);
                     } else {
                         console.error(message);
+                        this.roomJoinResponse = message;
                     }
                 });
 
@@ -93,6 +100,7 @@
                         this.$store.commit("UPDATE_ROOM", message);
                     } else {
                         console.error(message);
+                        this.roomJoinResponse = message;
                     }
                 });
             }
