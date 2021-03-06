@@ -106,7 +106,7 @@
 
     .stretchable-input-container input {
         flex: 1;
-        transition: .2s width linear;
+        /* transition: .2s width linear; */
     }
     .stretchable-button-container {
         flex: 0;
