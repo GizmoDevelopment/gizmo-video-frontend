@@ -2,17 +2,20 @@
     <div v-if="room" id="room-container">
         <div id="title-container">
             <h1>{{ room.name }}</h1>
-            <ion-icon
-                id="room-leave"
-                name="exit-outline"
+            <button
+                id="room-leave-button"
                 @click="leaveRoom()"
-            ></ion-icon>
+            >
+                <ion-icon
+                    name="exit-outline"
+                ></ion-icon>
+            </button>
         </div>
         <RoomUserList
             :users="room.users"
             :host="room.host"
         />
-        <p></p>
+        <p></p> <!-- shitty method to add spacing -->
         <VideoPlayer
             :data="room.data"
             :isHost="isHost"
@@ -141,13 +144,9 @@
         align-items: center;
     }
 
-    #room-leave {
+    #room-leave-button {
         margin-left: 20px;
         font-size: 25px;
-    }
-
-    #room-leave:hover {
-        cursor: pointer;
     }
 
 </style>
