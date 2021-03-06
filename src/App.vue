@@ -72,24 +72,23 @@
         color: var(--text-color);
     }
 
+    button {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+    }
+
     button, input {
         background-color: var(--container-background-color);
-        transition: .2s background-color ease-out;
+        transition: .2s background-color ease-in-out;
         border: 0px;
         padding: 5px;
         border-radius: 10px;
         outline: none;
     }
 
-    input {
-        background-color: var(--container-background-color);
-    }
-
-    input:focus {
-        background-color: var(--primary-color);
-    }
-
-    button:hover {
+    input:focus, button:hover {
         background-color: var(--primary-color);
     }
 
