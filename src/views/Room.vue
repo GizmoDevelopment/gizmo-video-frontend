@@ -26,7 +26,7 @@
     </div>
     <div v-else>
         <div v-if="roomJoinResponse">
-            <h3 class="faded-text">{{ roomJoinResponse }}</h3>
+            <h2 class="faded-text">{{ roomJoinResponse }}</h2>
         </div>
         <div v-else>
             <Buffer />
