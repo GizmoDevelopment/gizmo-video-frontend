@@ -17,6 +17,7 @@
             >
             </video>
             <ShowEpisodeList
+                v-if="isHost"
                 id="episode-container"
                 :show-id="data.showId"
                 :active-episode-id="data.episodeId"

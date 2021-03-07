@@ -45,7 +45,12 @@
             }
         },
         mounted () {
-            this.episodes = this.$store.state.shows[this.showId].episodes;
+            
+            const shows = this.$store.state.shows;
+
+            if (shows) {
+                this.episodes = shows[this.showId].episodes;
+            }
         }
     }
 
