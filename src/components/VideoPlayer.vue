@@ -16,6 +16,9 @@
 
             >
             </video>
+            <ShowEpisodeList
+                :showId="data.showId"
+            />
         </div>
         <div v-else>
             <h2 class="faded-text">No show has been selected yet</h2>
@@ -25,9 +28,15 @@
 
 <script>
 
+    // Components
+    import ShowEpisodeList from "../components/ShowEpisodeList";
+
     export default {
         name: "VideoPlayer",
         props: [ "data", "isHost" ],
+        components: {
+            ShowEpisodeList
+        },
         computed: {
             user () {
                 return this.$store.state.user;
@@ -75,7 +84,7 @@
                     
                     const timeDifference = video.currentTime - timestamp;
 
-                    if (timeDifference > 5 || timeDifference < 5) {
+                    if (timeDifference > 15 || timeDifference < 15) {
                         video.currentTime = timestamp;
                     }
                     
@@ -98,7 +107,7 @@
                 if (this.isHost) {
                     this.syncPlayer();
                 }
-            }, 7000);
+            }, 10000);
 
         }
     }
