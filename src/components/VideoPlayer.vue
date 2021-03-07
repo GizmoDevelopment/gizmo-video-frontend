@@ -2,15 +2,19 @@
     <div>
         <div v-if="data">
             <video
+
                 ref="video"
-                :controls="isHost"
                 width="1280"
                 height="720"
+
+                :controls="isHost"
+                :src="videoSource"
+
                 @pause="syncPlayer()"
                 @play="syncPlayer()"
                 @seeked="syncPlayer()"
+
             >
-                <source :src="videoSource" type="video/mp4">
             </video>
         </div>
         <div v-else>
