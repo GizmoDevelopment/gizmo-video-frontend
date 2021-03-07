@@ -108,7 +108,7 @@
             this.sockets.subscribe("client:update_room", updatedRoomContent => {
                 if (this.room) {
                     this.room.data = updatedRoomContent;
-                    this.$store.commit("UPDATE_ROOM", updatedRoomContent);
+                    this.$store.commit("UPDATE_ROOM_DATA", updatedRoomContent);
                 }
             });
 

@@ -17,7 +17,9 @@
             >
             </video>
             <ShowEpisodeList
-                :showId="data.showId"
+                id="episode-container"
+                :show-id="data.showId"
+                :active-episode-id="data.episodeId"
             />
         </div>
         <div v-else>
@@ -115,5 +117,9 @@
 </script>
 
 <style scoped>
+
+    #episode-container {
+        margin-top: 20px;
+    }
 
 </style>
