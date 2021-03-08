@@ -15,6 +15,7 @@
                 @seeked="syncPlayer()"
 
             >
+                <track label="English" kind="subtitles" srclang="en" :src="getSubtitleSource()" default>
             </video>
             <ShowEpisodeList
                 v-if="isHost"
@@ -71,6 +72,9 @@
                         });
                     }
                 }
+            },
+            getSubtitleSource () {
+                return `${ process.env.VUE_APP_VIDEO_ENDPOINT }/shows/${ this.data?.showId }/episodes/${ this.data?.episodeId }/subtitles`;
             }
         },
         mounted () {
