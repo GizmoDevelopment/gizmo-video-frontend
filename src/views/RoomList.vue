@@ -75,7 +75,7 @@
             
             this.$socket.emit("client:fetch_rooms", ({ type, message }) => {
                 if (type === "success") {
-                    if (message.length > 0) this.rooms = message;
+                    if (message.length > 0) this.rooms = message.filter(room => room?.id);
                 } else {
                     console.error(message);
                 }
