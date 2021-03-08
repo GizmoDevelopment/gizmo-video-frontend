@@ -67,10 +67,10 @@
 
     .episode-entry {
         border-radius: 100%;
-        padding: 6px;
-        padding-left: 15px;
-        padding-right: 15px;
-        font-size: 30px;
+        padding: 10px;
+        width: 60px;
+        height: 60px;
+        font-size: 27px;
         margin-left: 5px;
         margin-right: 5px;
     }
