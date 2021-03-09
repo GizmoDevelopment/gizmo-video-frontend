@@ -17,6 +17,7 @@
         />
         <ShowEpisodeList
             :show-id="showId"
+            :active-episode-id="episodeId"
         />
     </div>
     <div v-else>
@@ -28,11 +29,13 @@
 
     // Components
     import Video from "./Video";
+    import ShowEpisodeList from "./ShowEpisodeList";
 
     export default {
         name: "RoomVideo",
         components: {
-            Video
+            Video,
+            ShowEpisodeList
         },
         props: [ "data", "isHost" ],
         computed: {
