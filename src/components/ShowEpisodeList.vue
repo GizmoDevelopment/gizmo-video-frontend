@@ -61,19 +61,21 @@
 <style scoped>
 
     #episode-container {
+        width: 100%;
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
         margin-top: 25px;
+        margin-bottom: 25px;
     }
 
     .episode-entry {
         border-radius: 100%;
         padding: 10px;
-        width: 60px;
-        height: 60px;
-        font-size: 27px;
+        width: 40px;
+        height: 40px;
+        font-size: 20px;
         margin-left: 5px;
         margin-right: 5px;
     }
