@@ -48,16 +48,22 @@
 
 <style>
 
-    :root {
+    /*:root {
         --background-color: #1a161d;
         --container-background-color: #4e3b8b;
         --primary-color: #795bdd;
+        --text-color: #FFF;
+    }*/
+
+    :root {
+        --background-color: #191a1b;
+        --container-background-color: #27292B;
+        --primary-color: #511fa1;
         --text-color: #FFF;
     }
 
     body {
         background: var(--background-color);
-        overflow: hidden;
     }
 
     #app, body {
