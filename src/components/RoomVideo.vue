@@ -1,29 +1,27 @@
 <template>
-    <div>
-        <div v-show="data">
-            <Video
+    <div v-if="data">
+        <Video
 
-                ref="video"
+            ref="video"
 
-                :show-id="showId"
-                :episode-id="episodeId"
-                :timestamp="timestamp"
-                :controls="isHost"
+            :show-id="showId"
+            :episode-id="episodeId"
+            :timestamp="timestamp"
+            :controls="isHost"
 
-                @hook:mounted="initVideo()"
-                @video-pause="syncPlayer()"
-                @video-play="syncPlayer()"
-                @video-seek="syncPlayer()"
+            @hook:mounted="initVideo()"
+            @video-pause="syncPlayer()"
+            @video-play="syncPlayer()"
+            @video-seek="syncPlayer()"
 
-            />
-            <ShowEpisodeList
-                :show-id="showId"
-                :active-episode-id="episodeId"
-            />
-        </div>
-        <div v-if="!data">
-            <h2 class="faded-text">No show has been selected yet</h2>
-        </div>
+        />
+        <ShowEpisodeList
+            :show-id="showId"
+            :active-episode-id="episodeId"
+        />
+    </div>
+    <div v-else>
+        <h2 class="faded-text">No show has been selected yet</h2>
     </div>
 </template>
 
@@ -77,6 +75,8 @@
                 }
 
                 this.sockets.subscribe("client:sync_player", ({ timestamp, paused }) => {
+
+                    console.log(this.$refs);
 
                     const
                         { video } = this.$refs,
