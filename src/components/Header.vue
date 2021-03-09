@@ -35,7 +35,7 @@
 <style scoped>
 
     header {
-        background-color: var(--container-background-color);
+        background-color: var(--primary-color);
         width: 100%;
         height: 50px;
         display: flex;
