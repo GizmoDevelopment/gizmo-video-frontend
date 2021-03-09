@@ -1,27 +1,29 @@
 <template>
-    <div v-if="data">
-        <Video
+    <div>
+        <div v-show="data">
+            <Video
 
-            ref="video"
+                ref="video"
 
-            :show-id="showId"
-            :episode-id="episodeId"
-            :timestamp="timestamp"
-            :controls="isHost"
+                :show-id="showId"
+                :episode-id="episodeId"
+                :timestamp="timestamp"
+                :controls="isHost"
 
-            @hook:mounted="initVideo()"
-            @video-pause="syncPlayer()"
-            @video-play="syncPlayer()"
-            @video-seek="syncPlayer()"
+                @hook:mounted="initVideo()"
+                @video-pause="syncPlayer()"
+                @video-play="syncPlayer()"
+                @video-seek="syncPlayer()"
 
-        />
-        <ShowEpisodeList
-            :show-id="showId"
-            :active-episode-id="episodeId"
-        />
-    </div>
-    <div v-else>
-        <h2 class="faded-text">No show has been selected yet</h2>
+            />
+            <ShowEpisodeList
+                :show-id="showId"
+                :active-episode-id="episodeId"
+            />
+        </div>
+        <div v-if="!data">
+            <h2 class="faded-text">No show has been selected yet</h2>
+        </div>
     </div>
 </template>
 
