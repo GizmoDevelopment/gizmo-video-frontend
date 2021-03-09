@@ -20,6 +20,8 @@
             :data="room.data"
             :isHost="isHost"
         />
+        <p></p> <!-- shitty method to add spacing -->
+        <p></p> <!-- shitty method to add spacing -->
         <RoomChat
             :messages="room.messages"
         />
