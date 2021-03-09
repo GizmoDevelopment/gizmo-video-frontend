@@ -107,10 +107,17 @@
                 });
             }
 
-            this.sockets.subscribe("client:update_room", updatedRoomContent => {
+            this.sockets.subscribe("client:update_room", updatedRoom => {
                 if (this.room) {
-                    this.room.data = updatedRoomContent;
-                    this.$store.commit("UPDATE_ROOM_DATA", updatedRoomContent);
+                    this.room = updatedRoom;
+                    this.$store.commit("UPDATE_ROOM", updatedRoom);
+                }
+            });
+
+            this.sockets.subscribe("client:update_room_data", updatedRoomData => {
+                if (this.room) {
+                    this.room.data = updatedRoomData;
+                    this.$store.commit("UPDATE_ROOM_DATA", updatedRoomData);
                 }
             });
 
