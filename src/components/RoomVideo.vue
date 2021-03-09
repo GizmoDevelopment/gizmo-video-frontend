@@ -56,8 +56,8 @@
                     const { video } = this.$refs;
 
                     const syncData = {
-                        timestamp: video.currentTime,
-                        paused: video.paused
+                        timestamp: video.getCurrentTime(),
+                        paused: video.getPausedState()
                     };
 
                     this.$socket.emit("client:sync_player", syncData, ({ type, message }) => {
@@ -78,7 +78,7 @@
 
                     const
                         { video } = this.$refs,
-                        timeDifference = video.currentTime - timestamp;
+                        timeDifference = video.getCurrentTime() - timestamp;
 
                     if (Math.abs(timeDifference) > 15) {
                         video.seekToTimestamp(timestamp);
