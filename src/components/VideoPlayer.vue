@@ -7,6 +7,7 @@
                 width="1280"
                 height="720"
                 playsinline
+                crossorigin="anonymous"
 
                 :controls="isHost"
                 :src="videoSource"
