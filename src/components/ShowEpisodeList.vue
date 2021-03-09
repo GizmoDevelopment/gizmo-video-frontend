@@ -27,7 +27,7 @@
                 const state = this.$store.state;
 
                 if (state.room && state.user.id === state.room?.host?.id) {
-                    this.$socket.emit("client:update_room", {
+                    this.$socket.emit("client:update_room_data", {
                         showId: this.showId,
                         episodeId
                     }, ({ type, message }) => {
