@@ -16,7 +16,7 @@
             :host="room.host"
         />
         <p></p> <!-- shitty method to add spacing -->
-        <VideoPlayer
+        <RoomVideo
             :data="room.data"
             :isHost="isHost"
         />
@@ -38,7 +38,7 @@
 
     // Components
     import Buffer from "../components/Buffer";
-    import VideoPlayer from "../components/VideoPlayer";
+    import RoomVideo from "../components/RoomVideo";
     import RoomUserList from "../components/RoomUserList";
     import RoomChat from "../components/RoomChat";
 
@@ -47,7 +47,7 @@
         props: [ "roomId" ],
         components: {
             Buffer,
-            VideoPlayer,
+            RoomVideo,
             RoomUserList,
             RoomChat
         },
