@@ -41,6 +41,8 @@
                             console.error(message);
                         }                     
                     });
+                } else {
+                    this.$emit("episode-change", episodeId);
                 }
             }
         },
@@ -63,6 +65,7 @@
         flex-direction: row;
         justify-content: center;
         align-items: center;
+        margin-top: 25px;
     }
 
     .episode-entry {
