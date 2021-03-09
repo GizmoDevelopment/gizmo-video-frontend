@@ -38,9 +38,6 @@
             },
             subtitlesSource () {
                 return `${ this.videoEndpoint }/subtitles`;
-            },
-            paused () {
-                return this.$refs.video.paused;
             }
         },
         methods: {
@@ -55,6 +52,9 @@
             },
             getCurrentTime () {
                 return this.$refs.video.currentTime;
+            },
+            getPausedState () {
+                return this.$refs.video.paused;
             }
         }
     }
