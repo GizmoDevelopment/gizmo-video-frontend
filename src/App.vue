@@ -71,7 +71,7 @@
     }
 
     #app, button, h1, h2, h3, p, a, span, input {
-        font-family: "Varela Round", sans-serif;
+        font-family: "Poppins", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
