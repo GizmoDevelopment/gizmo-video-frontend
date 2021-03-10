@@ -97,12 +97,12 @@
         height: 50px;
         display: flex;
         flex-direction: row;
-        justify-content: flex-end;
+        justify-content: center;
         align-items: center;
     }
     
     #message-input-container >>> div {
-        width: 80%;
+        width: 100%;
     }
 
 </style>
