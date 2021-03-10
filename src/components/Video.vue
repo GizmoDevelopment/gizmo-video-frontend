@@ -14,11 +14,15 @@
 
         >
             <track
+
                 default
+
                 label="English"
                 kind="subtitles"
                 srclang="en"
+
                 :src="subtitlesSource"
+
             >
         </video>
     </div>
