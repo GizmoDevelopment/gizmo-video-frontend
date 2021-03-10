@@ -1,5 +1,5 @@
 <template>
-    <div id="video-container" v-show="showId && episodeId">
+    <div id="video-container" v-if="showId && episodeId">
         <video
 
             ref="video"

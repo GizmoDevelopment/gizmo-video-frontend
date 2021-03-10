@@ -51,57 +51,64 @@
         },
         methods: {
             syncPlayer () {
-                if (this.isHost) {
+                this.$nextTick(() => {
+                    if (this.isHost) {
 
-                    const { video } = this.$refs;
+                        const { video } = this.$refs;
 
-                    const syncData = {
-                        timestamp: video.getCurrentTime(),
-                        paused: video.getPausedState()
-                    };
+                        const syncData = {
+                            timestamp: video.getCurrentTime(),
+                            paused: video.getPausedState()
+                        };
 
-                    this.$socket.emit("client:sync_player", syncData, ({ type, message }) => {
-                        if (type !== "success") {
-                            console.error(message);
-                        }
-                    })
+                        this.$socket.emit("client:sync_player", syncData, ({ type, message }) => {
+                            if (type !== "success") {
+                                console.error(message);
+                            }
+                        })
 
-                }
+                    }
+                });
             },
             initVideo () {
+                this.$nextTick(() => {
 
-                if (this.data?.timestamp) {
-                    this.$refs.video.seekToTimestamp(this.data.timestamp);
-                }
-
-                this.sockets.subscribe("client:sync_player", ({ timestamp, paused }) => {
-
-                    console.log(this.$refs);
-
-                    const
-                        { video } = this.$refs,
-                        timeDifference = video.getCurrentTime() - timestamp;
-
-                    if (Math.abs(timeDifference) > 15) {
-                        video.seekToTimestamp(timestamp);
+                    if (this.data?.timestamp) {
+                        this.$refs.video.seekToTimestamp(this.data.timestamp);
                     }
 
-                    if (paused) {
-                        video.pause();
-                    } else {
-                        video.play();
-                    }
+                    this.sockets.subscribe("client:sync_player", ({ timestamp, paused }) => {
+                        this.$nextTick(() => {
+
+                            const { video } = this.$refs;
+                            
+                            if (video) {
+                                
+                                const timeDifference = video.getCurrentTime() - timestamp;
+
+                                if (Math.abs(timeDifference) > 15) {
+                                    video.seekToTimestamp(timestamp);
+                                }
+
+                                if (paused) {
+                                    video.pause();
+                                } else {
+                                    video.play();
+                                }
+                            }
+
+                        });
+                    });
+
+                    this.sockets.subscribe("client:join_room", () => {
+                        if (this.isHost) this.syncPlayer();
+                    });
+
+                    setInterval(() => {
+                        if (this.isHost) this.syncPlayer();
+                    }, 10000);
 
                 });
-
-                this.sockets.subscribe("client:join_room", () => {
-                    if (this.isHost) this.syncPlayer();
-                });
-
-                setInterval(() => {
-                    if (this.isHost) this.syncPlayer();
-                }, 10000);
-
             }
         }
     }
