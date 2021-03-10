@@ -1,22 +1,24 @@
 <template>
-    <header>
-        <div id="navigation-container">
-            <router-link
-                to="/shows"
-            >
-                <span class="navigation-label">Shows</span>
-            </router-link>
-            <router-link
-                to="/rooms"
-            >
-                <span class="navigation-label">Rooms</span>
-            </router-link>
-        </div>
-        <div id="user-container" v-if="user">
-            <p id="user-name">{{ user.uid }}</p>
-            <img id="user-avatar" :src="user.avatar" draggable="false">
-        </div>
-    </header>
+    <div id="navigation-container-spacer">
+        <header>
+            <div id="navigation-container">
+                <router-link
+                    to="/shows"
+                >
+                    <span class="navigation-label">Shows</span>
+                </router-link>
+                <router-link
+                    to="/rooms"
+                >
+                    <span class="navigation-label">Rooms</span>
+                </router-link>
+            </div>
+            <div id="user-container" v-if="user">
+                <p id="user-name">{{ user.uid }}</p>
+                <img id="user-avatar" :src="user.avatar" draggable="false">
+            </div>
+        </header>
+    </div>
 </template>
 
 <script>
@@ -34,14 +36,19 @@
 
 <style scoped>
 
-    header {
-        background-color: var(--primary-color);
+    #navigation-container-spacer, header {
         width: 100%;
         height: 50px;
+    }
+
+    header {
+        position: fixed;
+        background-color: var(--primary-color);
         display: flex;
         flex-direction: row;
         justify-content: space-between;
         align-items: center;
+        z-index: 5;
     }
 
     a {
