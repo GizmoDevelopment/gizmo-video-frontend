@@ -56,16 +56,19 @@
 
                         const { video } = this.$refs;
 
-                        const syncData = {
-                            timestamp: video.getCurrentTime(),
-                            paused: video.getPausedState()
-                        };
+                        if (video) {
+                            
+                            const syncData = {
+                                timestamp: video.getCurrentTime(),
+                                paused: video.getPausedState()
+                            };
 
-                        this.$socket.emit("client:sync_player", syncData, ({ type, message }) => {
-                            if (type !== "success") {
-                                console.error(message);
-                            }
-                        })
+                            this.$socket.emit("client:sync_player", syncData, ({ type, message }) => {
+                                if (type !== "success") {
+                                    console.error(message);
+                                }
+                            });
+                        }
 
                     }
                 });
@@ -83,7 +86,7 @@
                             const { video } = this.$refs;
                             
                             if (video) {
-                                
+
                                 const timeDifference = video.getCurrentTime() - timestamp;
 
                                 if (Math.abs(timeDifference) > 15) {
