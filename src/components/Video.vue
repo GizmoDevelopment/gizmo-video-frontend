@@ -13,7 +13,7 @@
             @seeked="$emit('video-seek')"
 
         >
-            <track
+            <!--<track
 
                 default
 
@@ -23,7 +23,7 @@
 
                 :src="subtitlesSource"
 
-            >
+            >-->
         </video>
     </div>
 </template>
