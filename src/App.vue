@@ -58,7 +58,7 @@
     :root {
         --background-color: #191a1b;
         --container-background-color: #27292B;
-        --primary-color: #511fa1;
+        --primary-color: #6b15db;
         --text-color: #FFF;
     }
 
@@ -108,6 +108,10 @@
 
     .faded-text {
         color: rgba(255, 255, 255, .5);
+    }
+
+    .no-margin {
+        margin: 0;
     }
 
     ion-icon {
