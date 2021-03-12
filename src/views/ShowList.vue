@@ -34,17 +34,10 @@
         },
         async mounted () {
 
-            const shows = this.$store.state.shows;
+            const freshShows = await fetchShows();
 
-            if (shows) {
-                this.shows = shows;
-            } else {
-
-                const freshShows = (await fetchShows()).data;
-
-                this.shows = freshShows;
-                this.$store.commit("UPDATE_SHOWS", freshShows);
-            }
+            this.shows = freshShows;
+            this.$store.commit("UPDATE_SHOWS", freshShows);
 
         }
     }
