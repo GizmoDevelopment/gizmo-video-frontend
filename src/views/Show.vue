@@ -1,6 +1,8 @@
 <template>
     <div id="container" v-if="show">
-        <h2>{{ show.title }}</h2>
+        <p></p>
+        <h2 class="no-margin">{{ show.title }}</h2>
+        <h3 class="faded-text no-margin">{{ episodeTitle }}</h3>
         <Video
             controls
             :show-id="showId"
@@ -35,6 +37,9 @@
         computed: {
             show () {
                 return this.$store.state.shows?.[this.showId];
+            },
+            episodeTitle () {
+                return this.$store.state.shows[this.showId]?.episodes[this.episodeId]?.title;
             }
         },
         methods: {

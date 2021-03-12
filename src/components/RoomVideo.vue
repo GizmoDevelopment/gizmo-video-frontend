@@ -1,5 +1,8 @@
 <template>
-    <div v-if="data">
+    <div v-if="show">
+        <h2 class="no-margin">{{ show.title }}</h2>
+        <h3 class="faded-text no-margin">{{ show.episodes[episodeId].title }}</h3>
+        <p></p>
         <Video
 
             ref="video"
@@ -47,6 +50,9 @@
             },
             timestamp () {
                 return this.data?.timestamp;
+            },
+            show () {
+                return this.$store.state.shows[this.showId];
             }
         },
         methods: {

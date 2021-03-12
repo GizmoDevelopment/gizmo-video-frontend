@@ -44,6 +44,9 @@
     import RoomUserList from "../components/RoomUserList";
     import RoomChat from "../components/RoomChat";
 
+    // Utils
+    import { getShow } from "../utils/shows";
+
     export default {
         name: "Room",
         props: [ "roomId" ],
@@ -114,10 +117,19 @@
                 }
             });
 
-            this.sockets.subscribe("client:update_room_data", updatedRoomData => {
+            this.sockets.subscribe("client:update_room_data", async updatedRoomData => {
                 if (this.room) {
-                    this.room.data = updatedRoomData;
-                    this.$store.commit("UPDATE_ROOM_DATA", updatedRoomData);
+                    try {
+
+                        const show = await getShow(updatedRoomData?.showId);
+                        this.$store.commit("ADD_SHOW", show);
+
+                        this.room.data = updatedRoomData;
+                        this.$store.commit("UPDATE_ROOM_DATA", updatedRoomData);
+
+                    } catch (err) {
+                        console.error(err);
+                    }
                 }
             });
 
