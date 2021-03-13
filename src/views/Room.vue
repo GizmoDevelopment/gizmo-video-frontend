@@ -176,6 +176,7 @@
     #room-leave-button {
         margin-left: 20px;
         font-size: 25px;
+        padding: 8px;
     }
 
 </style>
