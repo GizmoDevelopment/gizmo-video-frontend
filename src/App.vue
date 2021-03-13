@@ -84,7 +84,7 @@
         transition: .2s background-color ease-in-out;
         border: 0px;
         padding: 5px;
-        border-radius: 25px;
+        border-radius: 10px;
         outline: none;
     }
 
