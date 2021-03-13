@@ -1,5 +1,5 @@
 <template>
-    <div v-if="room" id="room-container">
+    <div v-if="room.id" id="room-container">
         <div id="title-container">
             <h1>{{ room.name }}</h1>
             <button
@@ -58,7 +58,7 @@
         },
         data () {
             return {
-                room: null,
+                room: {},
                 roomJoinResponse: ""
             };
         },
@@ -111,14 +111,14 @@
             }
 
             this.sockets.subscribe("client:update_room", updatedRoom => {
-                if (this.room) {
+                if (this.room.id) {
                     this.room = updatedRoom;
                     this.$store.commit("UPDATE_ROOM", updatedRoom);
                 }
             });
 
             this.sockets.subscribe("client:update_room_data", async updatedRoomData => {
-                if (this.room) {
+                if (this.room.id) {
                     try {
 
                         const show = await getShow(updatedRoomData?.showId);
@@ -134,20 +134,20 @@
             });
 
             this.sockets.subscribe("client:join_room", user => {
-                if (this.room) {
+                if (this.room.id) {
                     this.room.users.push(user);
                     this.$store.commit("UPDATE_ROOM", this.room);
                 }
             });
 
             this.sockets.subscribe("client:leave_room", userId => {
-                if (this.room) {
+                if (this.room.id) {
                     this.room.users = this.room.users.filter(user => user.id !== userId);
                 }
             });
             
             this.sockets.subscribe("client:send_message", message => {
-                if (this.room) {
+                if (this.roomi.id) {
                     this.room.messages.push(message);
                 }
             });
