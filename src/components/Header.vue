@@ -43,7 +43,7 @@
 
     header {
         position: fixed;
-        background-color: var(--primary-color);
+        background-color: var(--container-background-color);
         display: flex;
         flex-direction: row;
         justify-content: space-between;

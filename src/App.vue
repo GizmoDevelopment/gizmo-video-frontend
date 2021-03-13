@@ -56,9 +56,11 @@
     }*/
 
     :root {
-        --background-color: #191a1b;
-        --container-background-color: #27292B;
-        --primary-color: #6b15db;
+        --background-color: #1F242A;
+        --container-background-color: #282C35;
+        --container-hover-color: #4d546480;
+        --primary-color: #8D39FF;
+        --primary-hover-color: rgba(141, 57, 255, .5);
         --text-color: #FFF;
     }
 
@@ -71,31 +73,44 @@
     }
 
     #app, button, h1, h2, h3, p, a, span, input {
-        font-family: "Poppins", sans-serif;
+        font-family: "Calibri", sans-serif;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         text-align: center;
         color: var(--text-color);
     }
 
+    button, input {
+        transition: .2s background-color ease-in-out;
+        border: 0px;
+        padding: 5px;
+        border-radius: 25px;
+        outline: none;
+    }
+
+    input {
+        background-color: var(--container-background-color);
+        padding-left: 10px;
+        padding-right: 10px;
+    }
+
+    input:focus {
+        background-color: var(--container-hover-color);
+    }
+
+    button:hover {
+        background-color: var(--primary-hover-color);
+        cursor: pointer;
+    }
+
     button {
+        background-color: var(--primary-color);
         display: flex;
         flex-direction: row;
         justify-content: center;
         align-items: center;
-    }
-
-    button, input {
-        background-color: var(--container-background-color);
-        transition: .2s background-color ease-in-out;
-        border: 0px;
-        padding: 5px;
-        border-radius: 10px;
-        outline: none;
-    }
-
-    input:focus, button:hover {
-        background-color: var(--primary-color);
+        padding-left: 25px;
+        padding-right: 25px;
     }
 
     a {
