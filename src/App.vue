@@ -41,6 +41,10 @@
                 this.connectionStatus = "Try logging into the Gizmo website again.";
             }
 
+            Notification.requestPermission().then(result => {
+                console.log(result);
+            });
+
         }
     }
 
