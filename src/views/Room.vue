@@ -147,8 +147,17 @@
             });
             
             this.sockets.subscribe("client:send_message", message => {
-                if (this.roomi.id) {
+                if (this.room.id) {
+
                     this.room.messages.push(message);
+
+                    // Push notif for unread chat messages if window isn't focused
+                    if (!document.hasFocus() && Notification.permission === "granted") {
+                        new Notification(`Message from ${ message.author.uid }`, {
+                            body: message.content,
+                            icon: message.author.avatar
+                        });
+                    }
                 }
             });
 
