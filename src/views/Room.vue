@@ -67,6 +67,7 @@
                 return this.$store.state.user;
             },
             isHost () {
+                this.room; // Force prop refresh
                 return this.user.id === this.room.host.id;
             }
         },
